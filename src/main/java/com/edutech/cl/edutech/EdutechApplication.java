@@ -11,3 +11,5 @@ public class EdutechApplication {
 	}
 
 }
+
+/*ijos d la shingada*/
