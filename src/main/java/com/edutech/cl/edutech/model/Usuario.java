@@ -33,7 +33,7 @@ public class Usuario {
     private String correo_usu;
 
     @Column(nullable = false)
-    private String tipo_rol_user;
+    private String tipo_rol_usu;
 
     @Column(nullable = false)
     private Date fec_registro_usu;
