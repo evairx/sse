@@ -1,6 +1,6 @@
 package com.edutech.cl.edutech.controller;
 import com.edutech.cl.edutech.model.Curso;
-import com.edutech.cl.edutech.repository.CursoRepository;
+import com.edutech.cl.edutech.repository.CursoRepository;   
 
 import java.util.List;
 
