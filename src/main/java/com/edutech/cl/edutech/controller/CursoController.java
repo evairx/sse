@@ -1,31 +1,46 @@
 package com.edutech.cl.edutech.controller;
 import com.edutech.cl.edutech.model.Curso;
-import java.util.List;
-import java.util.ArrayList;
+import com.edutech.cl.edutech.repository.CursoRepository;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.Date;
+
+@Service
 public class CursoController { 
 
-    private List<Curso> listaCursos =  new ArrayList<>();
+    @Autowired
+    private CursoRepository cursoRepository;
 
     public List<Curso> getCursos(){
 
-        return listaCursos;
+        return cursoRepository.findAll();
 
     }
 
-    public Curso showCursos(int id){
+    public Curso getCursoId(Integer id){
 
-        for(Curso cur : listaCursos){
+        return cursoRepository.findById(id).orElse(null);
 
-            if(cur.getId_curso() == id){
+    }
 
-                return cur;
+    public Curso crearCurso(Curso curso){
 
-            }
+        if(curso.getFec_curso() == null){
+
+            curso.setFec_curso(new Date());
 
         }
 
-    return null;
+        return cursoRepository.save(curso);
+
+    }
+
+    public void eliminarCurso(Integer id){
+
+        cursoRepository.deleteById(id);
 
     }
     
