@@ -43,5 +43,30 @@ public class CursoController {
         cursoRepository.deleteById(id);
 
     }
+
+    public Curso updateCurso(Integer id, Curso cursoUpdate){
+
+        Curso cursoExist = cursoRepository.findById(id).orElse(null);
+
+        if(cursoExist == null){
+
+            return null;
+
+        }
+
+        cursoExist.setNom_curso(cursoUpdate.getNom_curso());
+        cursoExist.setDesc_curso(cursoUpdate.getDesc_curso());
+        cursoExist.setEstado_curso(cursoUpdate.getEstado_curso());
+        cursoExist.setCate_curso(cursoUpdate.getCate_curso());
+
+        if(cursoUpdate.getFec_curso() == null){
+
+            cursoUpdate.setFec_curso(new Date());
+
+        };
+
+        return cursoRepository.save(cursoExist);
+
+    }
     
 }
