@@ -8,7 +8,7 @@ import com.edutech.cl.edutech.model.Curso;;
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Integer>{
 
-    @Query("SELECT c FROM CURSO c WHERE c.id_curso = :id")
+    @Query("SELECT c FROM Curso c WHERE c.id_curso = :id")
     Optional<Curso> findById(Integer id);
 
 }
