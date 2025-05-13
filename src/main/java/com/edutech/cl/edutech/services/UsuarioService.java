@@ -27,4 +27,8 @@ public class UsuarioService {
         }
         return usuarioRepository.save(usuario);
     }
+
+    public void eliminar(Integer id) {
+        usuarioRepository.deleteById(id);
+    }
 }
