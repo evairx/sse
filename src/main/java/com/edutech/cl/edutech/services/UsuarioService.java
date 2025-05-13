@@ -5,6 +5,7 @@ import com.edutech.cl.edutech.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Date;
 
 @Service
 public class UsuarioService {
@@ -18,5 +19,12 @@ public class UsuarioService {
 
     public Usuario conseguirPorId(Integer id) {
         return usuarioRepository.encontrarPorId(id).orElse(null);
+    }
+
+    public Usuario crear(Usuario usuario) {
+        if (usuario.getFec_registro_usu() == null) {
+            usuario.setFec_registro_usu(new Date());
+        }
+        return usuarioRepository.save(usuario);
     }
 }
