@@ -1,4 +1,4 @@
-package com.edutech.cl.edutech.controller;
+package com.edutech.cl.edutech.services;
 import com.edutech.cl.edutech.model.Curso;
 import com.edutech.cl.edutech.repository.CursoRepository;   
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class CursoController { 
+public class CursoService { 
 
     @Autowired
     private CursoRepository cursoRepository;
