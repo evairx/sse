@@ -11,11 +11,12 @@ import lombok.*;
 
 public class InscripcionesCursos {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_curso;
+    @OneToMany
+    @JoinColumn(name = "id_curso", nullable = false)
+    private Curso curso;
 
-    @Column(nullable = false)
-    private String id_usuario;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
 }
