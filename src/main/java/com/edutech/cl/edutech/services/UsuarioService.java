@@ -18,7 +18,7 @@ public class UsuarioService {
     }
 
     public Usuario conseguirPorId(Integer id) {
-        return usuarioRepository.encontrarPorId(id).orElse(null);
+        return usuarioRepository.findById(id).orElse(null);
     }
 
     public Usuario crear(Usuario usuario) {

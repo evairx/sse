@@ -12,5 +12,4 @@ public class UsuarioController {
         return new String("holi");
     }
     
-
 }
