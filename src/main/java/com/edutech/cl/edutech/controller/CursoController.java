@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.edutech.cl.edutech.model.Curso;
 import com.edutech.cl.edutech.services.CursoService;
+import com.edutech.cl.edutech.model.Curso;
 import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/cursos")
@@ -18,4 +22,11 @@ public class CursoController {
         return cursoService.getCursos();
     }
 
+    @PostMapping("/crear/{id}")
+    public String crear(@PathVariable("id") int id,@RequestBody String entity) {
+        //TODO: process POST request
+        
+        return entity;
+    }
+    
 }
