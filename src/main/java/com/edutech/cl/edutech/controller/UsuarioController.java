@@ -1,15 +1,26 @@
 package com.edutech.cl.edutech.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.edutech.cl.edutech.model.Usuario;
+import com.edutech.cl.edutech.services.UsuarioService;
 
+import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
-    @GetMapping("/usuario")
-    public String mostrarHoli() {
-        return new String("holi");
-    }
+    @Autowired
+    private UsuarioService usuarioService;
     
+    @GetMapping
+    public List<Usuario> obtenerTodos() {
+        return usuarioService.conseguir();
+    }
+
+    @GetMapping("/crear")
+    public Usuario crear(@RequestBody Usuario usuario) {
+        return usuarioService.crear(usuario);
+    }
 }
