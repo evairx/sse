@@ -28,27 +28,27 @@ public class CursoController {
     }
 
     @PostMapping("/crear")
-    public String crear(@RequestBody Curso curso) {
+    public Curso crear(@RequestBody Curso curso) {
         cursoService.crearCurso(curso);
-        return curso.toString();
+        return curso;
     }
     
     @GetMapping("/{id}")
-    public String buscarCurso(@PathVariable("id") int id,@RequestParam String param) {
+    public Curso buscarCurso(@PathVariable("id") int id,@RequestParam String param) {
         Curso curso = cursoService.getCursoId(id);
-        return curso.toString();
+        return curso;
     }
 
     @GetMapping("/eliminar/{id}")
-    public String borrarString(@PathVariable("id") int id,@RequestParam String param) {
+    public Curso borrarString(@PathVariable("id") int id,@RequestParam String param) {
         Curso curso = cursoService.getCursoId(id);
         cursoService.eliminarCurso(id);
-        return curso.toString();
+        return curso;
     }
     
     @PutMapping("/actualizar/{id}")
-    public String putMethodName(@PathVariable int id, @RequestBody Curso curso) {
+    public Curso putMethodName(@PathVariable int id, @RequestBody Curso curso) {
         cursoService.updateCurso(id, curso);
-        return curso.toString();
+        return curso;
     }
 }
