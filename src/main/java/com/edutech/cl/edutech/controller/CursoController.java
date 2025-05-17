@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -34,20 +33,20 @@ public class CursoController {
     }
     
     @GetMapping("/{id}")
-    public Curso buscarCurso(@PathVariable("id") int id,@RequestParam String param) {
+    public Curso buscarCurso(@PathVariable("id") int id) {
         Curso curso = cursoService.getCursoId(id);
         return curso;
     }
 
     @GetMapping("/eliminar/{id}")
-    public Curso borrarString(@PathVariable("id") int id,@RequestParam String param) {
+    public Curso borrar(@PathVariable("id") int id) {
         Curso curso = cursoService.getCursoId(id);
         cursoService.eliminarCurso(id);
         return curso;
     }
     
     @PutMapping("/actualizar/{id}")
-    public Curso putMethodName(@PathVariable int id, @RequestBody Curso curso) {
+    public Curso actualizar(@PathVariable("id") int id, @RequestBody Curso curso) {
         cursoService.updateCurso(id, curso);
         return curso;
     }
