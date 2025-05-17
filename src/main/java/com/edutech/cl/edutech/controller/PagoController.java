@@ -38,7 +38,7 @@ public class PagoController {
         return pago;
     }
 
-    @GetMapping("/eliminar/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public Pago borrar(@PathVariable("id") int id) {
         Pago pago = pagoService.getPagoId(id);
         pagoService.eliminarPago(id);

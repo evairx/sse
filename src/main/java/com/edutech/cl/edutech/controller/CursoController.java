@@ -38,7 +38,7 @@ public class CursoController {
         return curso;
     }
 
-    @GetMapping("/eliminar/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public Curso borrar(@PathVariable("id") int id) {
         Curso curso = cursoService.getCursoId(id);
         cursoService.eliminarCurso(id);

@@ -31,7 +31,7 @@ public class UsuarioController {
         return usuarioService.conseguirPorId(id);
     }
 
-    @GetMapping("eliminar/{id}")
+    @DeleteMapping("eliminar/{id}")
     public Usuario eliminar(@PathVariable("id") int id) {
         Usuario usuario = usuarioService.conseguirPorId(id);
         usuarioService.eliminar(id);
