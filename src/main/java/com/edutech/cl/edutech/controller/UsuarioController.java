@@ -7,7 +7,6 @@ import com.edutech.cl.edutech.services.UsuarioService;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -28,12 +27,12 @@ public class UsuarioController {
     }
     
     @GetMapping("/{id}")
-    public Usuario buscar(@PathVariable("id") int id ,@RequestBody Usuario usuario) {
+    public Usuario buscar(@PathVariable("id") int id) {
         return usuarioService.conseguirPorId(id);
     }
 
     @GetMapping("eliminar/{id}")
-    public Usuario eliminar(@PathVariable("id") int id,@RequestParam String param) {
+    public Usuario eliminar(@PathVariable("id") int id) {
         Usuario usuario = usuarioService.conseguirPorId(id);
         usuarioService.eliminar(id);
         return usuario;
