@@ -2,19 +2,26 @@ package com.edutech.cl.edutech.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.edutech.cl.edutech.model.InscripcionesCursos;
 import com.edutech.cl.edutech.model.Usuario;
 import com.edutech.cl.edutech.services.UsuarioService;
+import com.edutech.cl.edutech.services.InscripcionesCursosService;
+
 
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
-@RequestMapping("/v1/usuarios")
+@RequestMapping("/v1/usuario")
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private InscripcionesCursosService inscripcionesCursosService;
     
     @GetMapping
     public List<Usuario> obtenerTodos() {
@@ -31,7 +38,12 @@ public class UsuarioController {
         return usuarioService.conseguirPorId(id);
     }
 
-    @DeleteMapping("eliminar/{id}")
+    @GetMapping("/{id}/cursos")
+    public List<InscripcionesCursos> obtenerCursosUsuario(@PathVariable("id") Integer id) {
+        return inscripcionesCursosService.cursoUsuario(id);
+    }
+    
+    @DeleteMapping("/eliminar/{id}")
     public Usuario eliminar(@PathVariable("id") int id) {
         Usuario usuario = usuarioService.conseguirPorId(id);
         usuarioService.eliminar(id);

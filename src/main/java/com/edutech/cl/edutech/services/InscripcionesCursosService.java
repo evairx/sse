@@ -1,8 +1,14 @@
 package com.edutech.cl.edutech.services;
 import com.edutech.cl.edutech.model.InscripcionesCursos;
-import com.edutech.cl.edutech.repository.InscripcionesCursosRepository;   
+import com.edutech.cl.edutech.repository.InscripcionesCursosRepository;
+import com.edutech.cl.edutech.model.Usuario;
+import com.edutech.cl.edutech.model.Curso;
+import com.edutech.cl.edutech.repository.UsuarioRepository;
+import com.edutech.cl.edutech.repository.CursoRepository;
 
 import java.util.List;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,46 +18,36 @@ public class InscripcionesCursosService {
 
     @Autowired
     private InscripcionesCursosRepository inscripcionesCursosRepository;
-
-    public List<InscripcionesCursos> getInscripcionesCursos(){
-
-        return inscripcionesCursosRepository.findAll();
-
-    }
-
-    public InscripcionesCursos getInscripcionesCursosId(Integer id){
-
-        return inscripcionesCursosRepository.findById(id).orElse(null);
-
-    }
-
-    public InscripcionesCursos crearInscripcionesCursos(InscripcionesCursos inscripcionesCursos){
-
-        return inscripcionesCursosRepository.save(inscripcionesCursos);
-
-    }
-
-    public void eliminarInscripcionesCursos(Integer id){
-
-        inscripcionesCursosRepository.deleteById(id);
-
-    }
-
-    public InscripcionesCursos updateInscripcionesCursos(Integer id, InscripcionesCursos inscripcionesCursosUpdate){
-
-        InscripcionesCursos inscripcionesCursosExist = inscripcionesCursosRepository.findById(id).orElse(null);
-
-        if(inscripcionesCursosExist == null){
-
-            return null;
-
-        }
-        inscripcionesCursosExist.setCurso(inscripcionesCursosUpdate.getCurso());
-        inscripcionesCursosExist.setFechaInscripcion(inscripcionesCursosUpdate.getFechaInscripcion());
-        inscripcionesCursosExist.setUsuario(inscripcionesCursosUpdate.getUsuario());
-
-        return inscripcionesCursosRepository.save(inscripcionesCursosExist);
-
-    }
     
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    
+    @Autowired
+    private CursoRepository cursoRepository;
+
+    public List<InscripcionesCursos> conseguir() {
+        return inscripcionesCursosRepository.findAll();
+    }
+
+    public List<InscripcionesCursos> cursoUsuario(Integer idUsuario) {
+        return inscripcionesCursosRepository.findAll().stream()
+            .filter(inscripcion -> inscripcion.getUsuario().getId_usuario().equals(idUsuario))
+            .collect(Collectors.toList());
+    }
+
+    public InscripcionesCursos agregar(Integer idUsuario, Integer idCurso) {
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
+        Curso curso = cursoRepository.findById(idCurso).orElse(null);
+        
+        if (usuario == null || curso == null) {
+            return null;
+        }
+
+        InscripcionesCursos nuevaInscripcion = new InscripcionesCursos();
+        nuevaInscripcion.setUsuario(usuario);
+        nuevaInscripcion.setCurso(curso);
+        nuevaInscripcion.setFechaInscripcion(new Date());
+        
+        return inscripcionesCursosRepository.save(nuevaInscripcion);
+    }
 }
