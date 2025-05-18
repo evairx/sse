@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/cursos")
+@RequestMapping("/v1/cursos")
 public class CursoController {
 
     @Autowired
@@ -26,28 +26,11 @@ public class CursoController {
         return cursoService.getCursos();
     }
 
-    @PostMapping("/crear")
-    public Curso crear(@RequestBody Curso curso) {
-        cursoService.crearCurso(curso);
-        return curso;
+    @PostMapping("/crear/{id}")
+    public String crear(@PathVariable("id") int id,@RequestBody String entity) {
+        //TODO: process POST request
+        
+        return entity;
     }
     
-    @GetMapping("/{id}")
-    public Curso buscarCurso(@PathVariable("id") int id) {
-        Curso curso = cursoService.getCursoId(id);
-        return curso;
-    }
-
-    @DeleteMapping("/eliminar/{id}")
-    public Curso borrar(@PathVariable("id") int id) {
-        Curso curso = cursoService.getCursoId(id);
-        cursoService.eliminarCurso(id);
-        return curso;
-    }
-    
-    @PutMapping("/actualizar/{id}")
-    public Curso actualizar(@PathVariable("id") int id, @RequestBody Curso curso) {
-        cursoService.updateCurso(id, curso);
-        return curso;
-    }
 }
