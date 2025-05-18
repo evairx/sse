@@ -25,17 +25,18 @@ public class CursoService {
         return cursoRepository.findById(id).orElse(null);
 
     }
-
+    
     public Curso crearCurso(Curso curso){
-
-        if(curso.getFec_curso() == null){
-
+        
+        if(curso.getFec_curso() == null) {
             curso.setFec_curso(new Date());
-
         }
-
+        
+        if(curso.getEstado_curso() == null || curso.getEstado_curso().isEmpty()) {
+            curso.setEstado_curso("Activo");
+        }
+        
         return cursoRepository.save(curso);
-
     }
 
     public void eliminarCurso(Integer id){

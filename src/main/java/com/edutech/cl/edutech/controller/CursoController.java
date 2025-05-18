@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/v1/cursos")
@@ -22,11 +21,9 @@ public class CursoController {
         return cursoService.getCursos();
     }
 
-    @PostMapping("/crear/{id}")
-    public String crear(@PathVariable("id") int id,@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return entity;
+    @PostMapping("/crear")
+    public Curso crear(@RequestBody Curso curso) {
+        return cursoService.crearCurso(curso);
     }
     
 }
