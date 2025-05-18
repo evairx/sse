@@ -8,10 +8,7 @@ import com.edutech.cl.edutech.model.Usuario;
 import com.edutech.cl.edutech.services.UsuarioService;
 import com.edutech.cl.edutech.services.InscripcionesCursosService;
 
-
 import java.util.List;
-
-
 
 @RestController
 @RequestMapping("/v1/usuario")

@@ -22,7 +22,10 @@ public class InscripcionesCursos implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
-    
+
+    @Column(name = "estado")
+    private String estado;
+
     @Column(name = "fecha_inscripcion")
     private java.util.Date fechaInscripcion;
 }

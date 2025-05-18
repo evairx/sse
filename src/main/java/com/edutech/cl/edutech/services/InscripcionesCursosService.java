@@ -34,20 +34,21 @@ public class InscripcionesCursosService {
             .filter(inscripcion -> inscripcion.getUsuario().getId_usuario().equals(idUsuario))
             .collect(Collectors.toList());
     }
-
-    public InscripcionesCursos agregar(Integer idUsuario, Integer idCurso) {
+    
+    public InscripcionesCursos inscribir(Integer idUsuario, Integer idCurso) {
         Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
         Curso curso = cursoRepository.findById(idCurso).orElse(null);
         
         if (usuario == null || curso == null) {
             return null;
         }
-
-        InscripcionesCursos nuevaInscripcion = new InscripcionesCursos();
-        nuevaInscripcion.setUsuario(usuario);
-        nuevaInscripcion.setCurso(curso);
-        nuevaInscripcion.setFechaInscripcion(new Date());
         
-        return inscripcionesCursosRepository.save(nuevaInscripcion);
+        InscripcionesCursos inscripcion = new InscripcionesCursos();
+        inscripcion.setUsuario(usuario);
+        inscripcion.setCurso(curso);
+        inscripcion.setEstado("Activo");
+        inscripcion.setFechaInscripcion(new Date());
+        
+        return inscripcionesCursosRepository.save(inscripcion);
     }
 }
