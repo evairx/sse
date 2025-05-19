@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.edutech.cl.edutech.model.Curso;
+import com.edutech.cl.edutech.model.Evaluacion;
 import com.edutech.cl.edutech.services.CursoService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/cursos")
@@ -17,6 +19,9 @@ public class CursoController {
 
     @Autowired
     private CursoService cursoService;
+
+    @Autowired
+    private com.edutech.cl.edutech.services.EvaluacionService evaluacionService;
 
     
     @GetMapping
@@ -43,6 +48,16 @@ public class CursoController {
                 Map<String, Object> error = new HashMap<>();
                 error.put("mensaje", "Curso no encontrado");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
+
+            List<Evaluacion> evaluaciones = evaluacionService.getEvaluaciones();
+
+            List<Evaluacion> evaluacionesCurso = evaluaciones.stream()
+                .filter(e -> e.getCurso().getId_curso().equals(curso.getId_curso()))
+                .collect(Collectors.toList());
+
+            for (Evaluacion evaluacion : evaluacionesCurso) {
+                evaluacionService.eliminarEvaluacion(evaluacion.getId_eva());
             }
 
             cursoService.eliminarCurso(id);
