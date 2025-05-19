@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.edutech.cl.edutech.model.Usuario;
 import com.edutech.cl.edutech.services.UsuarioService;
@@ -58,7 +59,7 @@ public class UsuarioController {
         }
     }
 
-    @PostMapping("/actualizar/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<Usuario> actualizar(@PathVariable int id, @RequestBody Usuario usuario) {
         Usuario usuarioActualizado = usuarioService.actualizar(id, usuario);
         

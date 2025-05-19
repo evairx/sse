@@ -58,7 +58,7 @@ public class CursoController {
         }
     }
 
-    @PostMapping("/actualizar/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<Curso> actualizar(@PathVariable("id") int id, @RequestBody Curso curso) {
         Curso cursoActualizado = cursoService.updateCurso(id, curso);
         
