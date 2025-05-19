@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/Evaluaciones")
+@RequestMapping("/api/v1/evaluaciones")
 public class EvaluacionController {
 
     @Autowired

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/Pagos")
+@RequestMapping("/api/v1/pagos")
 public class PagoController {
 
     @Autowired
