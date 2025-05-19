@@ -5,10 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.edutech.cl.edutech.model.InscripcionesCursos;
 import com.edutech.cl.edutech.model.Usuario;
 import com.edutech.cl.edutech.services.UsuarioService;
-import com.edutech.cl.edutech.services.InscripcionesCursosService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +18,6 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @Autowired
-    private InscripcionesCursosService inscripcionesCursosService;
     
     @GetMapping
     public List<Usuario> obtenerTodos() {
@@ -39,24 +34,29 @@ public class UsuarioController {
         return usuarioService.conseguirPorId(id);
     }
 
-    @GetMapping("/{id}/cursos")
-    public ResponseEntity<?> obtenerCursosUsuario(@PathVariable("id") Integer id) {
-        List<InscripcionesCursos> cursos = inscripcionesCursosService.cursoUsuario(id);
-        
-        if (cursos.isEmpty()) {
-            Map<String, Object> errorResponse = new HashMap<>();
-            errorResponse.put("error", "El usuario no tiene cursos inscritos");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-        }
-
-        return ResponseEntity.ok(cursos);
-    }
-
     @DeleteMapping("/eliminar/{id}")
-    public Usuario eliminar(@PathVariable("id") int id) {
-        Usuario usuario = usuarioService.conseguirPorId(id);
-        usuarioService.eliminar(id);
-        return usuario;
+    public ResponseEntity<Map<String, Object>> eliminar(@PathVariable int id) {
+        try {
+            Usuario usuario = usuarioService.conseguirPorId(id);
+            
+            if (usuario == null) {
+                Map<String, Object> error = new HashMap<>();
+                error.put("mensaje", "Usuario no encontrado");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            }
+
+            usuarioService.eliminar(id);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("mensaje", "Usuario eliminado correctamente");
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            Map<String, Object> error = new HashMap<>();
+            error.put("mensaje", "Ocurrió un error al intentar eliminar el usuario");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
     }
+
     
 }
