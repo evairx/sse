@@ -7,6 +7,7 @@ import com.edutech.cl.edutech.repository.UsuarioRepository;
 import com.edutech.cl.edutech.repository.CursoRepository;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -30,9 +31,21 @@ public class InscripcionesCursosService {
     }
 
     public List<InscripcionesCursos> cursoUsuario(Integer idUsuario) {
-        return inscripcionesCursosRepository.findAll().stream()
-            .filter(inscripcion -> inscripcion.getUsuario().getId_usuario().equals(idUsuario))
-            .collect(Collectors.toList());
+        try {
+            List<InscripcionesCursos> inscripciones = inscripcionesCursosRepository.findAll().stream()
+                .filter(inscripcion -> inscripcion.getUsuario() != null && 
+                    inscripcion.getUsuario().getId_usuario() != null &&
+                    inscripcion.getUsuario().getId_usuario().equals(idUsuario))
+                .collect(Collectors.toList());
+            
+            if (inscripciones.isEmpty()) {
+                return new ArrayList<>();
+            }
+            
+            return inscripciones;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
     
     public InscripcionesCursos inscribir(Integer idUsuario, Integer idCurso) {
