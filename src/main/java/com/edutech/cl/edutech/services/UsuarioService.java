@@ -31,4 +31,21 @@ public class UsuarioService {
     public void eliminar(Integer id) {
         usuarioRepository.deleteById(id);
     }
+
+   public Usuario actualizar(Integer id, Usuario usuarioUpdate) {
+        Usuario usuarioExist = usuarioRepository.findById(id).orElse(null);
+        
+        if (usuarioExist == null) {
+            return null;
+        }
+        
+        usuarioExist.setPnombre_usu(usuarioUpdate.getPnombre_usu());
+        usuarioExist.setSnombre_usu(usuarioUpdate.getSnombre_usu());
+        usuarioExist.setAppaterno_usu(usuarioUpdate.getAppaterno_usu());
+        usuarioExist.setApmaterno_usu(usuarioUpdate.getApmaterno_usu());
+        usuarioExist.setCorreo_usu(usuarioUpdate.getCorreo_usu());
+        usuarioExist.setTipo_rol_usu(usuarioUpdate.getTipo_rol_usu());
+        
+        return usuarioRepository.save(usuarioExist);
+    }
 }

@@ -58,5 +58,15 @@ public class UsuarioController {
         }
     }
 
-    
+    @PostMapping("/actualizar/{id}")
+    public ResponseEntity<Usuario> actualizar(@PathVariable int id, @RequestBody Usuario usuario) {
+        Usuario usuarioActualizado = usuarioService.actualizar(id, usuario);
+        
+        if (usuarioActualizado == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        
+        return ResponseEntity.ok(usuarioActualizado);
+    }
+
 }
