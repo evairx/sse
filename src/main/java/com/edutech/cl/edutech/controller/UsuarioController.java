@@ -11,6 +11,8 @@ import com.edutech.cl.edutech.model.Pago;
 import com.edutech.cl.edutech.services.UsuarioService;
 import com.edutech.cl.edutech.services.PagoService;
 import com.edutech.cl.edutech.services.EvaluacionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/usuario")
+@Tag(name = "Usuarios", description = "Operaciones relacionadas con los usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -32,21 +35,25 @@ public class UsuarioController {
     
 
     @GetMapping
+    @Operation(summary = "Obtener todos los usuarios", description = "Permite obtener todos los usuarios")
     public List<Usuario> obtenerTodos() {
         return usuarioService.conseguir();
     }
 
     @PostMapping("/crear")
+    @Operation(summary = "Crear usuario", description = "Permite crear un usuario")
     public Usuario crear(@RequestBody Usuario usuario) {
         return usuarioService.crear(usuario);
     }
     
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar usuario por ID", description = "Permite buscar un usuario por ID")
     public Usuario buscar(@PathVariable("id") int id) {
         return usuarioService.conseguirPorId(id);
     }
 
     @DeleteMapping("/eliminar/{id}")
+    @Operation(summary = "Eliminar usuario por ID", description = "Permite eliminar un usuario por ID")
     public ResponseEntity<Map<String, Object>> eliminar(@PathVariable int id) {
         try {
             Usuario usuario = usuarioService.conseguirPorId(id);
@@ -93,6 +100,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/actualizar/{id}")
+    @Operation(summary = "Actualizar usuario mediante ID", description = "Permite actualizar los datos de un usuario por ID")
     public ResponseEntity<Usuario> actualizar(@PathVariable int id, @RequestBody Usuario usuario) {
         Usuario usuarioActualizado = usuarioService.actualizar(id, usuario);
         

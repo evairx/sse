@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import com.edutech.cl.edutech.model.Curso;
 import com.edutech.cl.edutech.model.Evaluacion;
 import com.edutech.cl.edutech.services.CursoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/cursos")
+@Tag(name = "Cursos", description = "Operaciones relacionadas con los Cursos")
 public class CursoController {
 
     @Autowired
@@ -25,21 +28,25 @@ public class CursoController {
 
     
     @GetMapping
+    @Operation(summary = "Obtener todos los cursos", description = "Obtiene una lista de todos los cursos")
     public List<Curso> obtenerTodos() {
         return cursoService.getCursos();
     }
 
     @PostMapping("/crear")
+    @Operation(summary = "Crear un curso", description = "Permite crear un curso")
     public Curso crear(@RequestBody Curso curso) {
         return cursoService.crearCurso(curso);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar curso por ID", description = "Permite buscar un Curso por su ID")
     public Curso buscar(@PathVariable("id") int id) {
         return cursoService.getCursoId(id);
     }
 
     @DeleteMapping("/eliminar/{id}")
+    @Operation(summary = "Eliminar curso por ID", description = "Permite eliminar un Curso por su ID")
     public ResponseEntity<Map<String, Object>> eliminar(@PathVariable int id) {
         try {
             Curso curso = cursoService.getCursoId(id);
@@ -74,6 +81,7 @@ public class CursoController {
     }
 
     @PutMapping("/actualizar/{id}")
+    @Operation(summary = "Actualizar Curso por ID", description = "Permite actualizar los datos de un curso mediante su ID")
     public ResponseEntity<Curso> actualizar(@PathVariable("id") int id, @RequestBody Curso curso) {
         Curso cursoActualizado = cursoService.updateCurso(id, curso);
         
