@@ -1,7 +1,11 @@
 package com.edutech.cl.edutech.model;
 
 import org.springframework.hateoas.RepresentationModel;
+
+import lombok.Data;
+
 import java.util.Date;
+@Data
 
 public class CursoModel extends RepresentationModel<CursoModel> {
 
